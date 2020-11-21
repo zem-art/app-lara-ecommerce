@@ -151,8 +151,7 @@ export class Home extends Component {
                     ? this.props.navigation.navigate('Detail', {
                         item: item,
                       })
-                    : this.props.navigation.navigate('Login'),
-                    alert('Maaf Anda Harus LogIn Terlebih Dahulu');
+                    : this.props.navigation.navigate('Login');
                 }}
                 key={index}>
                 <View style={styles.body}>
@@ -162,12 +161,17 @@ export class Home extends Component {
                     <Text style={styles.price}>Price</Text>
                     <Text style={styles.stock}>stock :{item.totalPrice}</Text>
                     <Text style={styles.Rating}>rating : {item.rating}</Text>
-
                     <Button title="Lihat" />
                   </View>
                 </View>
               </TouchableOpacity>
             ))}
+            {/* <TouchableOpacity
+              onPress={() =>
+                console.log(this.props.userToken.userReducer.user)
+              }>
+              <Text>Klik Token</Text>
+            </TouchableOpacity> */}
           </View>
         </ScrollView>
       </View>

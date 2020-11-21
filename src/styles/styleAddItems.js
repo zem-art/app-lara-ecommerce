@@ -34,14 +34,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
   },
+  image: {
+    height: 150,
+    width: 150,
+    borderRadius: 10,
+  },
   pactImage: {
-    height: 200,
+    height: 150,
     //borderWidth: 1,
     marginBottom: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image: {
+  eximage: {
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
@@ -54,6 +59,15 @@ const styles = StyleSheet.create({
     //height: 900,
     //borderWidth: 1,
     alignSelf: 'center',
+  },
+  text1: {
+    flexDirection: 'row',
+  },
+  text2: {
+    left: 140,
+  },
+  pactPrice: {
+    flexDirection: 'row',
   },
   input: {
     //backgroundColor: '#a9a9a9',
@@ -69,6 +83,23 @@ const styles = StyleSheet.create({
     height: 50,
     width: 310,
   },
+  input2: {
+    height: 50,
+    width: 130,
+    backgroundColor: '#FFFF',
+    borderRadius: 10,
+    paddingLeft: 20,
+    marginRight: 40,
+    marginVertical: 7,
+  },
+  input3: {
+    height: 50,
+    width: 130,
+    backgroundColor: '#FFFF',
+    borderRadius: 10,
+    paddingLeft: 20,
+    marginVertical: 7,
+  },
   description: {
     backgroundColor: '#FFFF',
     paddingLeft: 20,
@@ -82,7 +113,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addItem: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#ff1493',
     width: 200,
     height: 50,
     alignSelf: 'center',
@@ -93,6 +124,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
+    color: '#FFFFFF',
   },
 });
 

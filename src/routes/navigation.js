@@ -15,7 +15,7 @@ import Category from '../controller/Category';
 import Header from '../controller/HeaderFromProfil';
 import DetailProduct from '../components/DetailProduct';
 import Conguratulation from '../components/Congratulations';
-import {AddProduct} from '../components/addProduct';
+import AddProduct from '../components/addProduct';
 
 const Stack = createStackNavigator();
 

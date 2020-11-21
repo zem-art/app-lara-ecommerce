@@ -11,8 +11,10 @@ import {
 import {styles} from '../styles/styleAddItems';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
+import axios from 'axios';
+import Spinner from 'react-native-spinkit';
 
-export class AddProduct extends Component {
+class AddProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,77 +27,141 @@ export class AddProduct extends Component {
       stock: '',
       discount: '',
       setSelectedValue: '',
+      url: '',
+      srcImg: '',
+      filename: '',
+      uri: '',
+      // create category for setState picker
+      inputCategori: '',
+      isloading: false,
     };
   }
 
   componentDidMount() {
-    console.log(this.props.userReducer);
+    this.getCategori();
+    // console.log(this.props.userToken.userReducer.user);
   }
 
-  addData = async () => {
+  addPhoto = () => {
+    this.setState({isloading: true});
+    const options = {
+      title: 'Pilih Gambar',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      console.log('RESPONSE =', response);
+      if (response.didCancel) {
+        console.log('User, Cancel Image Picker');
+      } else if (response.error) {
+        console.log('ImagePicker Eror', response.error);
+      } else if (response.customeBottom) {
+        console.log('User Tapped Costume buttom', response.customeBottom);
+      } else {
+        // //  check response and fileName
+        // // jangan lupa huruf gede dan kecil nya harus di perhatikan
+        console.log('respon img picker, and fileName ', response.fileName);
+        this.setState({
+          srcImg: {uri: response.uri},
+          uri: response.uri,
+          filename: response.fileName,
+        });
+      }
+    });
+  };
+
+  addData() {
+    this.setState({isloading: true});
+    console.log('Mulai Upload');
     const {
       name,
       categori,
-      image,
       description,
       price,
       stock,
       discount,
-      token,
+      inputCategori,
     } = this.state;
-
     if (
-      name === '' &&
-      categori === '' &&
-      image !== '' &&
-      description === '' &&
-      price === '' &&
-      stock === '' &&
-      discount === ''
+      (name !== '' || categori !== '',
+      description !== '' || price !== '' || stock !== '',
+      discount !== '')
     ) {
+      // data that will be filled and declared
       const add = {
         name: name,
-        categori: categori,
-        image: image,
+        categori_id: inputCategori,
         description: description,
         price: price,
         stock: stock,
         discount: discount,
       };
-      await fetch('http://larashop12.herokuapp.com/api/products', {
+      // create fromData
+      const data = new FormData();
+      data.append('image', {
+        uri: this.state.uri,
+        type: 'image/jpeg',
+        name: this.state.filename,
+      });
+      // the declaration of the add above
+      for (var key in add) {
+        var encodedKey = encodeURIComponent(key);
+        var encodedValue = encodeURIComponent(add[key]);
+        data.append(encodedKey, encodedValue);
+      }
+      const url = 'http://larashop12.herokuapp.com/api/products';
+      fetch(url, {
         method: 'POST',
-        body: this.createPhoto(image, add),
+        body: data,
         headers: {
-          Authorization: `Bearer ${token}`,
+          // this is a token stored on redux
+          Authorization: `Bearer ${this.props.userToken.userReducer.user}`,
         },
       })
-        .then((response) => response.json)
+        .then((response) => {
+          console.log('response === ', response);
+          return response.text();
+        })
         .then((result) => {
-          if (result) console.log('Oupload sucsess', result);
-          alert('Data Berhasil diTambahan');
+          if (result) {
+            console.log('result === ', result);
+            alert('Data Berhasil diTambahan');
+          }
         })
         .catch((err) => {
+          this.setState({isloading: false});
           console.log('Oupload eror', err);
           alert('Data Gagal Di Tambahkan');
         });
     } else {
-      alert('Tolong lengkapi Product Anda');
+      alert('Tolong Lengakapi Data Product Anda');
     }
-  };
-
-  addPhoto = () => {
-    const options = {
-      title: 'select Photo',
-    };
-    ImagePicker.launchImageLibrary(options, (response) => {
-      if (response.uri) {
-        this.setState({image: response});
-      }
+    this.setState({
+      isloading: false,
     });
-  };
+  }
+
+  getCategori() {
+    try {
+      axios
+        .get('http://larashop12.herokuapp.com/api/categori')
+        .then((categori) => {
+          //console.log('ini categori');
+          console.log(categori.data.data);
+          this.setState({
+            categori: categori.data.data,
+          });
+        });
+    } catch (eror) {
+      console.error(eror);
+      console.log('eror');
+    }
+  }
 
   render() {
-    console.log(this.props.userToken);
+    //console.log('ini categori', this.state.categori);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -112,13 +178,28 @@ export class AddProduct extends Component {
         <ScrollView>
           <View style={styles.dataAdd}>
             <View style={styles.pactImage}>
-              <TouchableOpacity style={styles.image}>
-                <Text>Image</Text>
+              <TouchableOpacity
+                style={styles.eximage}
+                onPress={() => this.addPhoto()}>
+                <Image
+                  style={styles.image}
+                  source={
+                    this.state.uri !== ''
+                      ? {
+                          uri: this.state.uri,
+                        }
+                      : {
+                          uri:
+                            'https://image.shutterstock.com/image-vector/add-icon-plus-vector-260nw-454078798.jpg',
+                        }
+                  }
+                />
               </TouchableOpacity>
             </View>
             <View style={styles.pactItem}>
               <Text>Name Product</Text>
               <TextInput
+                value={this.state.name}
                 multiline={true}
                 style={styles.input}
                 placeholder="name Product"
@@ -128,41 +209,50 @@ export class AddProduct extends Component {
                   })
                 }
               />
-              <Text>Kategori</Text>
+              <Text>Category</Text>
               <Picker
-                selectedValue={this.state.category}
+                mode="dropdown"
+                selectedValue={this.state.inputCategori}
                 style={styles.input1}
                 onValueChange={(itemValue) =>
-                  this.setState({categori: itemValue})
+                  this.setState({inputCategori: itemValue})
                 }>
-                {this.state.categori.map((item, value) => (
-                  <Picker.Item label={item.categori} value={item.id} />
-                ))}
+                {this.state.categori.map((item, value) => {
+                  return <Picker.Item label={item.categori} value={item.id} />;
+                })}
               </Picker>
-              <Text>Harga</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="exemple"
-                onChangeText={(price) =>
-                  this.setState({
-                    price: price,
-                  })
-                }
-              />
-              <Text>Discount</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="exemple"
-                onChangeText={(discount) =>
-                  this.setState({
-                    discount: discount,
-                  })
-                }
-              />
+              <View style={styles.text1}>
+                <Text>Price</Text>
+                <Text style={styles.text2}>Discount</Text>
+              </View>
+              <View style={styles.pactPrice}>
+                <TextInput
+                  value={this.state.price}
+                  style={styles.input2}
+                  placeholder="Price"
+                  onChangeText={(price) =>
+                    this.setState({
+                      price: price,
+                    })
+                  }
+                />
+
+                <TextInput
+                  value={this.state.discount}
+                  style={styles.input3}
+                  placeholder="Discount"
+                  onChangeText={(discount) =>
+                    this.setState({
+                      discount: discount,
+                    })
+                  }
+                />
+              </View>
               <Text>Stock</Text>
               <TextInput
+                value={this.state.stock}
                 style={styles.input}
-                placeholder="exemple"
+                placeholder="Stock"
                 onChangeText={(stock) =>
                   this.setState({
                     stock: stock,
@@ -171,9 +261,10 @@ export class AddProduct extends Component {
               />
               <Text>Descriptsi Product</Text>
               <TextInput
+                value={this.state.description}
                 multiline={true}
                 style={styles.description}
-                placeholder="exemple"
+                placeholder="Description Product"
                 onChangeText={(description) =>
                   this.setState({
                     description: description,
@@ -184,9 +275,17 @@ export class AddProduct extends Component {
             <TouchableOpacity
               onPress={() => this.addData()}
               style={styles.addItem}>
-              <Text style={styles.text}>Tambah Data</Text>
+              {this.state.isloading ? (
+                <Spinner color={'white'} size={30} type="Wave" />
+              ) : (
+                <Text style={styles.text}>Add Product</Text>
+              )}
             </TouchableOpacity>
           </View>
+          {/* <TouchableOpacity
+            onPress={() => console.log(this.props.userToken.userReducer.user)}>
+            <Text>Klik Token</Text>
+          </TouchableOpacity> */}
         </ScrollView>
       </View>
     );
@@ -198,4 +297,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(AddProduct);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userLogin: (access_token) =>
+      dispatch({type: 'SET_USER', payload: access_token}),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);

@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     width: 25,
   },
   dataAdd: {
-    backgroundColor: '#6495ed',
+    backgroundColor: '#ff1493',
     width: 370,
     alignSelf: 'center',
     marginVertical: 10,
@@ -107,13 +107,13 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 10,
   },
-  lowPart: {
-    backgroundColor: 'blue',
-    height: 60,
-    justifyContent: 'center',
-  },
+  // lowPart: {
+  //   backgroundColor: '#ff1493',
+  //   height: 60,
+  //   justifyContent: 'center',
+  // },
   addItem: {
-    backgroundColor: '#ff1493',
+    backgroundColor: '#FFFFFF',
     width: 200,
     height: 50,
     alignSelf: 'center',
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
   },
 });
 

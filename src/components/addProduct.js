@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   Picker,
+  ToastAndroid,
 } from 'react-native';
 import {styles} from '../styles/styleAddItems';
 import {connect} from 'react-redux';
@@ -70,6 +71,9 @@ class AddProduct extends Component {
         });
       }
     });
+    this.setState({
+      isloading: false,
+    });
   };
 
   addData() {
@@ -127,16 +131,20 @@ class AddProduct extends Component {
         .then((result) => {
           if (result) {
             console.log('result === ', result);
-            alert('Data Berhasil diTambahan');
+            ToastAndroid.show('Data Berhasil diTambahan', ToastAndroid.LONG);
+            this.props.navigation.navigate('Market');
           }
         })
         .catch((err) => {
           this.setState({isloading: false});
           console.log('Oupload eror', err);
-          alert('Data Gagal Di Tambahkan');
+          ToastAndroid.show('Data Gagal Di Tambahkan', ToastAndroid.LONG);
         });
     } else {
-      alert('Tolong Lengakapi Data Product Anda');
+      ToastAndroid.show(
+        'Tolong Lengakapi Data Product Anda',
+        ToastAndroid.LONG,
+      );
     }
     this.setState({
       isloading: false,
@@ -144,6 +152,7 @@ class AddProduct extends Component {
   }
 
   getCategori() {
+    this.setState({isloading: true});
     try {
       axios
         .get('http://larashop12.herokuapp.com/api/categori')
@@ -158,6 +167,7 @@ class AddProduct extends Component {
       console.error(eror);
       console.log('eror');
     }
+    this.setState({isloading: false});
   }
 
   render() {
@@ -276,7 +286,7 @@ class AddProduct extends Component {
               onPress={() => this.addData()}
               style={styles.addItem}>
               {this.state.isloading ? (
-                <Spinner color={'white'} size={30} type="Wave" />
+                <Spinner color={'blue'} size={10} type="Wave" />
               ) : (
                 <Text style={styles.text}>Add Product</Text>
               )}
@@ -297,10 +307,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    userLogin: (access_token) =>
-      dispatch({type: 'SET_USER', payload: access_token}),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);
+export default connect(mapStateToProps)(AddProduct);

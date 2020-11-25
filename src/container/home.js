@@ -7,6 +7,7 @@ import {
   Button,
   RefreshControl,
   Image,
+  ToastAndroid,
 } from 'react-native';
 
 import {styles} from '../styles/stylesHome';
@@ -72,11 +73,15 @@ export class Home extends Component {
         // console.log('Eror Data Tidak Di Temukan');
         //// if respon from backend
         if (eror.response) {
-          alert(eror.response.data.message);
+          ToastAndroid(
+            'Kesalahan Dari BAckEnd',
+            ToastAndroid.LONG,
+            eror.response.data.message,
+          );
         }
         // // respons from claent
         else if (eror.request) {
-          alert('kamu sedang offline nih');
+          ToastAndroid('kamu sedang offline nih', ToastAndroid.LONG);
         }
         // else {
         //   console.log('data tidak Ada');
@@ -111,7 +116,7 @@ export class Home extends Component {
           <TouchableOpacity
             style={{top: 20}}
             onPress={() => this.state.onRefreash()}>
-            <Text>Klik Me Untuk Merefreash</Text>
+            <Text>Klik Me Untuk refreash</Text>
           </TouchableOpacity>
         </View>
       );
@@ -160,7 +165,7 @@ export class Home extends Component {
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.price}>Price</Text>
                     <Text style={styles.stock}>stock :{item.totalPrice}</Text>
-                    <Text style={styles.Rating}>rating : {item.rating}</Text>
+                    <Text style={styles.Rating}>{item.rating}</Text>
                     <Button title="Lihat" />
                   </View>
                 </View>
@@ -178,13 +183,14 @@ export class Home extends Component {
     );
   }
 }
-// used to use the token
+// get token from redux
 const mapStateToProps = (state) => {
   return {
     userToken: state,
   };
 };
 
+// // send token to redux and
 const mapDispatchToProps = (dispatch) => {
   return {
     userLogin: (access_token) =>

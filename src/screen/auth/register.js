@@ -3,8 +3,8 @@ import {
   Text,
   View,
   TextInput,
-  ActivityIndicator,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 import {styles} from '../../styles/stylesRegister';
 import axios from 'axios';
@@ -35,7 +35,6 @@ export class Register extends Component {
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
-        noPhone: this.state.noPhone,
       },
     })
       .then((responseJson) => {
@@ -43,24 +42,35 @@ export class Register extends Component {
         const {data} = responseJson.data;
         // If the data is exactly the same as the form that must be filled in, then send it to the backend
         if (data === data) {
-          alert('Data Berhasil Di Tambah');
+          ToastAndroid.show(
+            'Akun Berhasil Mendaftar Daftar',
+            ToastAndroid.LONG,
+          );
           this.gotoLogin();
         }
       })
       .catch((eror) => {
-        alert('Maaf Data Harus Di isi');
+        ToastAndroid.show('Maaf Data Harus Di isi', ToastAndroid.LONG);
         this.setState({isloading: false});
+        // // respon from backEnd
         if (eror.response) {
-          alert(eror.response.data.messager);
+          ToastAndroid.show(
+            'Kesalahan Dari BackEnd Kami',
+            ToastAndroid.LONG,
+            eror.response.data.messager,
+          );
           console.log(eror.response.messager);
         }
         // respons from claent
         else if (eror.request) {
-          alert('Kamu Sedang Offline');
+          ToastAndroid.show('Kamu Sedang Offline', ToastAndroid.LONG);
         }
         // respon from developer
         else {
-          alert('Kesalahan Dari Kami');
+          ToastAndroid.show(
+            'Maaf Ada Kesalahan Yang Berasal Dari Kami',
+            ToastAndroid.LONG,
+          );
         }
       });
   }

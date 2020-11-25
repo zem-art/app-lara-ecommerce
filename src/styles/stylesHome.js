@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   Rating: {
     // borderWidth: 1,
-    width: 155,
+    alignSelf: 'flex-end',
     marginVertical: 3,
     textAlign: 'right',
     fontSize: 12,

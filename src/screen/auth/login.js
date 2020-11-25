@@ -1,7 +1,14 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import React, {Component} from 'react';
-import {Text, View, TextInput, TouchableOpacity, Image} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from 'react-native';
 import {styles} from '../../styles/stylesLogin';
 import Spinner from 'react-native-spinkit';
 import {connect} from 'react-redux';
@@ -20,7 +27,7 @@ export class Login extends Component {
   }
 
   gotoHome() {
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Intro');
   }
 
   userLogin = async () => {
@@ -31,6 +38,7 @@ export class Login extends Component {
           email: this.state.email,
           password: this.state.password,
         })
+        .then((response) => response)
         .then((responseJson) => {
           // di extark data nya
           const {data} = responseJson.data;
@@ -42,7 +50,7 @@ export class Login extends Component {
           // // send to redux
           this.props.userLogin(access_token);
           if (access_token) {
-            alert('Anda Berhasil Login');
+            ToastAndroid.show('Anda Berhasil Login', ToastAndroid.LONG);
             AsyncStorage.setItem('token', access_token).then((value) => {
               this.gotoHome();
             });
@@ -55,16 +63,23 @@ export class Login extends Component {
       // alert('Data Yang di Masukan Tidak Ada');
       this.setState({isloading: false});
       if (eror.response) {
-        alert('Email Atau Password Salah', eror.response.data.messager);
+        ToastAndroid.show(
+          'Email Atau Password Salah',
+          ToastAndroid.LONG,
+          eror.response.data.messager,
+        );
         console.log(eror.response.messager);
       }
       // respons from claent
       else if (eror.request) {
-        alert('Data Yang Di Masukan Salah');
+        ToastAndroid.show('Data Yang Di Masukan Salah', ToastAndroid.LONG);
       }
       // respon from developer
       else {
-        alert('Kesalahan Dari Kami');
+        ToastAndroid.show(
+          'Maaf Terjadi Kesalahan Dari Kami',
+          ToastAndroid.LONG,
+        );
       }
       // respon from developer and claent
       // alert('kamu offline nih');

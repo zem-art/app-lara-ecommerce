@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Login from '../screen/auth/login';
 import Register from '../screen/auth/register';
@@ -14,12 +16,25 @@ import ChekOut from '../components/chekOut';
 import Category from '../controller/Category';
 import Header from '../controller/HeaderFromProfil';
 import DetailProduct from '../components/DetailProduct';
-import Conguratulation from '../components/Congratulations';
 import AddProduct from '../components/addProduct';
+import OpenToko from '../components/OpenToko';
+import Market from '../container/marketPlace';
+import Profile from '../components/FormulirProfile';
+import ProfileDetail from '../components/profileDetail';
 
 const Stack = createStackNavigator();
 
-export class Navigation extends Component {
+class Navigation extends Component {
+  componentDidMount() {
+    //console.log('Home DID MOUNT');
+    // get token to Asyncstore
+    AsyncStorage.getItem('token').then((token) => {
+      // console.log(data);
+      this.props.userLogin(token);
+    });
+
+    // console.log(this.props.userReducer);
+  }
   render() {
     return (
       <NavigationContainer>
@@ -37,11 +52,27 @@ export class Navigation extends Component {
           <Stack.Screen name="HeaderProfile" component={Header} />
           <Stack.Screen name="Detail" component={DetailProduct} />
           <Stack.Screen name="AddProduct" component={AddProduct} />
-          <Stack.Screen name="Welcome" component={Conguratulation} />
+          <Stack.Screen name="Toko" component={OpenToko} />
+          <Stack.Screen name="Market" component={Market} />
+          <Stack.Screen name="EditProfile" component={Profile} />
+          <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   }
 }
+//// get token from redux
+const mapStateToProps = (state) => {
+  return {
+    userToken: state,
+  };
+};
+// send token to redux
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userLogin: (access_token) =>
+      dispatch({type: 'SET_USER', payload: access_token}),
+  };
+};
 
-export default Navigation;
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

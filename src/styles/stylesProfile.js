@@ -5,9 +5,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#bdbdbdbd',
   },
-  // background: {
-  //   backgroundColor: '#bdbdbdbd',
-  // },
+  title: {
+    position: 'absolute',
+    fontSize: 20,
+    color: '#FFFF',
+    alignSelf: 'center',
+    top: 20,
+  },
   header: {
     // backgroundColor: '#6495ed',
     backgroundColor: '#ff1493',
@@ -40,9 +44,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 13,
   },
   inHeader: {
-    //borderWidth: 1,
-    marginVertical: 20,
-    height: 80,
+    // borderWidth: 1,
+    // marginVertical: 20,
+    marginVertical: 10,
+    height: 150,
+    // height: 80,
     padding: 5,
     flexDirection: 'row',
     alignItems: 'center',
@@ -51,6 +57,7 @@ const styles = StyleSheet.create({
   profil: {
     height: 60,
     width: 60,
+    borderRadius: 15,
   },
   textProfile: {
     paddingLeft: 15,
@@ -94,23 +101,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 7,
+    // borderWidth: 1,
   },
   inCredit: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 35,
     alignItems: 'center',
     backgroundColor: '#6495ed',
     height: 50,
     justifyContent: 'center',
     borderRadius: 10,
     marginHorizontal: 15,
-    //borderWidth: 1,
+    // borderWidth: 1,
   },
   text1: {
     bottom: 50,
     left: 10,
     fontWeight: 'bold',
     fontSize: 15,
+    // borderWidth: 1,
+    marginRight: 60,
   },
+
   text2: {
     fontSize: 17,
     color: '#FFFF',
@@ -118,6 +129,23 @@ const styles = StyleSheet.create({
   text3: {
     color: '#bdbdbdbd',
     fontSize: 17,
+  },
+  login: {
+    alignSelf: 'center',
+    left: 15,
+    backgroundColor: 'red',
+    height: 50,
+    width: 150,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  textLogin: {
+    fontSize: 15,
+    color: '#FFFF',
+  },
+  textAtention: {
+    left: 100,
   },
   office: {
     backgroundColor: '#FFFFFF',

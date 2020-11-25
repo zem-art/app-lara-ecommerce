@@ -28,6 +28,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  loading1: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginVertical: 300,
+  },
   inImage: {
     height: 90,
     width: 90,

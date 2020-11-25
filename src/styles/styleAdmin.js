@@ -32,15 +32,27 @@ const styles = StyleSheet.create({
   photo: {
     height: 70,
     width: 70,
-    borderWidth: 1,
+    // borderWidth: 1,
     marginRight: 5,
+    borderRadius: 20,
+  },
+  photo1: {
+    height: 70,
+    width: 70,
+    borderWidth: 1,
+    alignSelf: 'center',
+    borderRadius: 10,
   },
   titleStore: {
     height: 50,
     width: 250,
-    borderWidth: 1,
+    // borderWidth: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    left: 20,
+  },
+  text1: {
+    fontSize: 20,
+    color: '#FFFFFF',
   },
   all: {
     flexWrap: 'wrap',

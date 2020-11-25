@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#bdbdbdbd',
     marginHorizontal: 13,
+    // borderWidth: 1,
   },
   inHeader: {
     // borderWidth: 1,
@@ -53,6 +54,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
+  },
+  navigate: {
+    borderWidth: 1,
+    width: 80,
+    left: 20,
   },
   profil: {
     height: 60,

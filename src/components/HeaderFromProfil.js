@@ -24,7 +24,7 @@ export class Header extends Component {
   }
 
   componentDidMount() {
-    return this.getProfile();
+    this.getProfile();
   }
 
   onRefreash() {
@@ -44,13 +44,13 @@ export class Header extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data ====', data.data);
-        // console.log(data);
+        console.log('data =12', data.profile);
+        //console.log(data);
         //change from function to object
         this.setState({
           isEror: false,
           isloading: false,
-          data: data.data,
+          data: data.profile,
           refreash: false,
         });
       })
@@ -74,13 +74,11 @@ export class Header extends Component {
         else if (eror.request) {
           ToastAndroid('kamu sedang offline nih', ToastAndroid.LONG);
         }
-        // else {
-        //   console.log('data tidak Ada');
-        // }
       });
   };
 
   render() {
+    // console.log('ini state data ', this.state.data.length);
     return (
       <View>
         {/* <TouchableOpacity
@@ -88,7 +86,7 @@ export class Header extends Component {
           <Text>Klik Token</Text>
         </TouchableOpacity> */}
         {this.props.userToken.userReducer.user ? (
-          <Text style={styles.title}></Text>
+          <></>
         ) : (
           <View style={styles.exSign}>
             <TouchableOpacity
@@ -125,23 +123,39 @@ export class Header extends Component {
                 refreshing={this.state.refreash}
                 onRefresh={() => this.onRefreash()}
               />
-            }
-            horizontal={true}>
-            {this.state.data.map((item, index) => (
-              <View style={styles.inHeader}>
-                <TouchableOpacity
-                  onPress={() =>
-                    this.props.navigation.navigate('ProfileDetail')
-                  }
-                  key={index}>
-                  <Image style={styles.profil} source={{uri: item.image}} />
-                </TouchableOpacity>
-                <View>
-                  <Text style={styles.textProfile}>{item.nama}</Text>
-                  <Text style={styles.textProfile}>{item.email}</Text>
-                </View>
-              </View>
-            ))}
+            }>
+            {this.state.data.length !== 0 ? (
+              <>
+                {this.state.data.map((item, index) => (
+                  <View style={styles.inHeader}>
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.navigation.navigate('ProfileDetail', {
+                          item: item,
+                        })
+                      }
+                      key={index}>
+                      <Image style={styles.profil} source={{uri: item.image}} />
+                    </TouchableOpacity>
+                    <View>
+                      <Text style={styles.textProfile}>{item.nama}</Text>
+                      <Text style={styles.textProfile}>{item.user.email}</Text>
+                    </View>
+                  </View>
+                ))}
+              </>
+            ) : this.props.userToken.userReducer.user ? (
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('EditProfile')}>
+                <Text>Tolong Isi data anda</Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                style={styles.navigate}
+                onPress={() => this.props.navigation.navigate('Register')}>
+                <Text>Anda belum Terdaftar</Text>
+              </TouchableOpacity>
+            )}
           </ScrollView>
         </View>
         <View style={styles.component}>
@@ -171,9 +185,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(Header);
 
-{
-  /* <Image
-                    style={styles.profil}
-                    source={require('../asset/icon/manperson.png')}
-                  /> */
-}
+// <Image
+// style={styles.profil}
+// source={require('../asset/icon/manperson.png')}
+/// >

@@ -48,6 +48,7 @@ class AddProduct extends Component {
     const options = {
       title: 'Pilih Gambar',
       storageOptions: {
+        noData: true,
         skipBackup: true,
         path: 'images',
       },
@@ -157,7 +158,7 @@ class AddProduct extends Component {
       axios
         .get('http://larashop12.herokuapp.com/api/categori')
         .then((categori) => {
-          //console.log('ini categori');
+          // console.log('ini categori');
           console.log(categori.data.data);
           this.setState({
             categori: categori.data.data,
@@ -292,10 +293,10 @@ class AddProduct extends Component {
               )}
             </TouchableOpacity>
           </View>
-          {/* <TouchableOpacity
+          <TouchableOpacity
             onPress={() => console.log(this.props.userToken.userReducer.user)}>
             <Text>Klik Token</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </ScrollView>
       </View>
     );

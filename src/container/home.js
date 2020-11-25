@@ -13,7 +13,7 @@ import {
 import {styles} from '../styles/stylesHome';
 import Spinner from 'react-native-spinkit';
 import Category from '../controller/Category';
-import Header from '../controller/HeaderfromHome';
+import Header from '../components/HeaderfromHome';
 import AsyncStorage from '@react-native-community/async-storage';
 import {connect} from 'react-redux';
 
@@ -33,10 +33,11 @@ export class Home extends Component {
     //console.log('Home DID MOUNT');
     this.getdata();
     // get token to Asyncstore
-    AsyncStorage.getItem('token').then((token) => {
-      // console.log(data);
-      this.props.userLogin(token);
-    });
+
+    // AsyncStorage.getItem('token').then((token) => {
+    //   // console.log(data);
+    //   this.props.userLogin(token);
+    // });
 
     // console.log(this.props.userReducer);
   }

@@ -5,10 +5,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 50,
-    backgroundColor: 'yellow',
-    paddingTop: 10,
-    paddingLeft: 10,
+    height: 60,
+    backgroundColor: '#ff1493',
+    paddingTop: 15,
+    paddingLeft: 15,
     flexDirection: 'row',
   },
   back: {
@@ -16,11 +16,12 @@ const styles = StyleSheet.create({
     width: 30,
   },
   text: {
-    fontSize: 20,
+    fontSize: 23,
     marginLeft: 30,
+    color: '#FFFF',
   },
   body: {
-    backgroundColor: '#a9a9a9',
+    backgroundColor: '#9400d3',
     flex: 1,
     // paddingHorizontal: 20,
   },
@@ -32,7 +33,8 @@ const styles = StyleSheet.create({
   },
   text1: {
     fontSize: 20,
-    opacity: 0.5,
+    color: '#FFFF',
+    // opacity: 0.5,
   },
   account: {
     height: 240,
@@ -63,7 +65,7 @@ const styles = StyleSheet.create({
     width: 40,
   },
   logOuth: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#ff1493',
     height: 70,
     width: 150,
     justifyContent: 'center',
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
   },
   textend: {
     fontSize: 20,
+    color: '#FFFF',
   },
 });
 

@@ -14,13 +14,14 @@ import cartScreen from '../components/cartScreen';
 import Product from '../components/productScreen';
 import ChekOut from '../components/chekOut';
 import Category from '../controller/Category';
-import Header from '../controller/HeaderFromProfil';
+import Header from '../components/HeaderfromHome';
 import DetailProduct from '../components/DetailProduct';
 import AddProduct from '../components/addProduct';
 import OpenToko from '../components/OpenToko';
 import Market from '../container/marketPlace';
 import Profile from '../components/FormulirProfile';
 import ProfileDetail from '../components/profileDetail';
+import Management from '../components/productmanage';
 
 const Stack = createStackNavigator();
 
@@ -56,6 +57,7 @@ class Navigation extends Component {
           <Stack.Screen name="Market" component={Market} />
           <Stack.Screen name="EditProfile" component={Profile} />
           <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
+          <Stack.Screen name="Management" component={Management} />
         </Stack.Navigator>
       </NavigationContainer>
     );

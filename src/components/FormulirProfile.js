@@ -186,8 +186,6 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(Profile);
 
-{
-  /* <TouchableOpacity style={styles.edit}>
-              <Text style={styles.textEdit}>Edit Profile</Text>
-            </TouchableOpacity> */
-}
+// <TouchableOpacity style={styles.edit}>
+//    <Text style={styles.textEdit}>Edit Profile</Text>
+//  </TouchableOpacity>

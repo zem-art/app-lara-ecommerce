@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity} from 'react-native';
 import {styles} from '../styles/stylesProfile';
-import Header from '../controller/HeaderFromProfil';
-import OrderList from '../controller/OrderList';
+import Header from '../components/HeaderFromProfil';
+import OrderList from '../components/OrderList';
 import {connect} from 'react-redux';
 
 export class Profile extends Component {
@@ -29,7 +29,7 @@ export class Profile extends Component {
               <TouchableOpacity
                 style={styles.inCredit}
                 onPress={() => this.props.navigation.navigate('Market')}>
-                <Text style={styles.text2}>Buka Toko</Text>
+                <Text style={styles.text2}>Buka Usaha</Text>
               </TouchableOpacity>
             </>
           ) : (

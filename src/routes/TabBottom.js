@@ -5,7 +5,7 @@ import Home from '../container/home';
 import Chat from '../container/chat';
 import Troli from '../container/troli';
 import Profile from '../container/profile';
-import Market from '../container/marketPlace';
+// import Market from '../container/marketPlace';
 import {connect} from 'react-redux';
 
 const Tab = createBottomTabNavigator();

@@ -34,11 +34,11 @@ export class Login extends Component {
     this.setState({isloading: true});
     try {
       axios
-        .post(`https://larashop12.herokuapp.com/api/auth/login`, {
+        .post('https://larashop12.herokuapp.com/api/auth/login', {
           email: this.state.email,
           password: this.state.password,
         })
-        .then((response) => response)
+        // .then((response) => response)
         .then((responseJson) => {
           // di extark data nya
           const {data} = responseJson.data;
@@ -46,7 +46,6 @@ export class Login extends Component {
           // jadi ini masuk ke data nya
           console.log(data);
           const {access_token} = data;
-
           // // send to redux
           this.props.userLogin(access_token);
           if (access_token) {
@@ -66,9 +65,9 @@ export class Login extends Component {
         ToastAndroid.show(
           'Email Atau Password Salah',
           ToastAndroid.LONG,
-          eror.response.data.messager,
+          // eror.response.data.messager,
         );
-        console.log(eror.response.messager);
+        console.log('Erororr', eror.response.messager);
       }
       // respons from claent
       else if (eror.request) {

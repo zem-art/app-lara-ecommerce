@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 23,
     color: '#FFFF',
-    left: 90,
+    left: 70,
   },
   image: {
     backgroundColor: '#9400d3',

@@ -22,6 +22,9 @@ import Market from '../container/marketPlace';
 import Profile from '../components/FormulirProfile';
 import ProfileDetail from '../components/profileDetail';
 import Management from '../components/productmanage';
+import EditProduct from '../components/editProduct';
+import History from '../components/History';
+import chatUser from '../components/chatUser';
 
 const Stack = createStackNavigator();
 
@@ -40,24 +43,27 @@ class Navigation extends Component {
     return (
       <NavigationContainer>
         <Stack.Navigator headerMode={{headerMode: false}}>
-          <Stack.Screen name="Intro" component={Intro} />
           <Stack.Screen name="Home" component={MyTabs} />
+          <Stack.Screen name="Intro" component={Intro} />
           <Stack.Screen name="Category" component={Category} />
           <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Forgot" component={Forgot} />
           <Stack.Screen name="Setting" component={Setting} />
-          <Stack.Screen name="Cart" component={cartScreen} />
-          <Stack.Screen name="Product" component={Product} />
-          <Stack.Screen name="ChekOut" component={ChekOut} />
-          <Stack.Screen name="HeaderProfile" component={Header} />
           <Stack.Screen name="Detail" component={DetailProduct} />
           <Stack.Screen name="AddProduct" component={AddProduct} />
-          <Stack.Screen name="Toko" component={OpenToko} />
           <Stack.Screen name="Market" component={Market} />
           <Stack.Screen name="EditProfile" component={Profile} />
           <Stack.Screen name="ProfileDetail" component={ProfileDetail} />
           <Stack.Screen name="Management" component={Management} />
+          <Stack.Screen name="EditProduct" component={EditProduct} />
+          <Stack.Screen name="History" component={History} />
+          <Stack.Screen name="Product" component={Product} />
+          <Stack.Screen name="chatUser" component={chatUser} />
+          {/* <Stack.Screen name="Cart" component={cartScreen} /> */}
+          {/* <Stack.Screen name="ChekOut" component={ChekOut} /> */}
+          {/* <Stack.Screen name="HeaderProfile" component={Header} /> */}
+          {/* <Stack.Screen name="Toko" component={OpenToko} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     );

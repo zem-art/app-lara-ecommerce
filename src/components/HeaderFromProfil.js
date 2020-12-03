@@ -146,14 +146,15 @@ export class Header extends Component {
               </>
             ) : this.props.userToken.userReducer.user ? (
               <TouchableOpacity
+                style={styles.navigate}
                 onPress={() => this.props.navigation.navigate('EditProfile')}>
-                <Text>Tolong Isi data anda</Text>
+                <Text style={styles.text5}>Tolong Lengkapi data anda</Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={styles.navigate}
                 onPress={() => this.props.navigation.navigate('Register')}>
-                <Text>Anda belum Terdaftar</Text>
+                <Text style={styles.text5}>Anda belum Terdaftar</Text>
               </TouchableOpacity>
             )}
           </ScrollView>

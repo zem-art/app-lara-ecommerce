@@ -21,7 +21,6 @@ class AddProduct extends Component {
     this.state = {
       token: '',
       name: '',
-      categori: [],
       image: '',
       description: '',
       price: '',
@@ -31,6 +30,7 @@ class AddProduct extends Component {
       url: '',
       srcImg: '',
       filename: '',
+      categori: [],
       uri: '',
       // create category for setState picker
       inputCategori: '',
@@ -46,9 +46,9 @@ class AddProduct extends Component {
   addPhoto = () => {
     this.setState({isloading: true});
     const options = {
+      noData: true,
       title: 'Pilih Gambar',
       storageOptions: {
-        noData: true,
         skipBackup: true,
         path: 'images',
       },
@@ -79,7 +79,7 @@ class AddProduct extends Component {
 
   addData() {
     this.setState({isloading: true});
-    console.log('Mulai Upload');
+    console.log('Mulai Upload Harap Bersabar');
     const {
       name,
       categori,
@@ -94,28 +94,19 @@ class AddProduct extends Component {
       description !== '' || price !== '' || stock !== '',
       discount !== '')
     ) {
-      // data that will be filled and declared
-      const add = {
-        name: name,
-        categori_id: inputCategori,
-        description: description,
-        price: price,
-        stock: stock,
-        discount: discount,
-      };
-      // create fromData
       const data = new FormData();
+      data.append('name', name);
+      data.append('categori_id', inputCategori);
+      data.append('price', price);
+      data.append('stock', stock);
+      data.append('discount', discount);
+      data.append('description', description);
       data.append('image', {
         uri: this.state.uri,
         type: 'image/jpeg',
         name: this.state.filename,
       });
-      // the declaration of the add above
-      for (var key in add) {
-        var encodedKey = encodeURIComponent(key);
-        var encodedValue = encodeURIComponent(add[key]);
-        data.append(encodedKey, encodedValue);
-      }
+      console.log('ini dari data', data);
       const url = 'http://larashop12.herokuapp.com/api/products';
       fetch(url, {
         method: 'POST',
@@ -125,15 +116,14 @@ class AddProduct extends Component {
           Authorization: `Bearer ${this.props.userToken.userReducer.user}`,
         },
       })
-        .then((response) => {
-          console.log('response === ', response);
-          return response.text();
-        })
+        .then((response) => response.text())
         .then((result) => {
           if (result) {
             console.log('result === ', result);
             ToastAndroid.show('Data Berhasil diTambahan', ToastAndroid.LONG);
             this.props.navigation.navigate('Market');
+          } else {
+            ToastAndroid.show('gagal Di tambahkan ', ToastAndroid.LONG);
           }
         })
         .catch((err) => {
@@ -293,10 +283,10 @@ class AddProduct extends Component {
               )}
             </TouchableOpacity>
           </View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => console.log(this.props.userToken.userReducer.user)}>
             <Text>Klik Token</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </ScrollView>
       </View>
     );

@@ -46,24 +46,29 @@ const styles = StyleSheet.create({
   },
   inHeader: {
     // borderWidth: 1,
-    // marginVertical: 20,
-    marginVertical: 10,
-    height: 150,
-    // height: 80,
+    marginTop: 20,
     padding: 5,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
+    // marginBottom: 3,
   },
   navigate: {
     borderWidth: 1,
-    width: 80,
+    width: 100,
     left: 20,
+    justifyContent: 'center',
+    height: 90,
+  },
+  text5: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#FFFF',
   },
   profil: {
     height: 60,
     width: 60,
-    borderRadius: 15,
+    borderRadius: 10,
   },
   textProfile: {
     paddingLeft: 15,
@@ -72,6 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   component: {
+    marginTop: 30,
     flexDirection: 'row',
     alignSelf: 'center',
     //borderWidth: 1,

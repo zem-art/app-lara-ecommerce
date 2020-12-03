@@ -1,8 +1,18 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  Modal,
+  ToastAndroid,
+  TextInput,
+} from 'react-native';
 import {styles} from '../styles/styleDetail';
 import axios from 'axios';
 import Spinner from 'react-native-spinkit';
+import {connect} from 'react-redux';
 
 export class DetailProduct extends Component {
   constructor() {
@@ -12,10 +22,20 @@ export class DetailProduct extends Component {
       isloading: true,
       isEror: false,
       refreash: false,
+      openModal: false,
+      jumlah: 0,
+      id: '',
+      product: '',
+      qty: 1,
+      cart: {},
     };
   }
   componentDidMount() {
     this.getDetail();
+  }
+
+  cartItem() {
+    this.setState({openModal: true});
   }
   getDetail = async () => {
     try {
@@ -25,7 +45,7 @@ export class DetailProduct extends Component {
         method: 'GET',
       });
       const data = response.data;
-      //console.log(data.data);
+      console.log(data.data);
       this.setState({
         isEror: false,
         isloading: false,
@@ -40,12 +60,37 @@ export class DetailProduct extends Component {
       console.log(err);
       // if respon from backend
       if (err.response) {
-        console.log(err.response.data.message);
+        console.log('Respon Dari BackEnd', err.response.data.message);
       } else if (err.request) {
-        alert('kamu sedang offline nih');
+        ToastAndroid.show('kamu sedang offline nih', ToastAndroid.LONG);
       }
     }
   };
+
+  addCart() {
+    axios({
+      url: `https://larashop12.herokuapp.com/api/pesan/${this.props.route.params.item.id}`,
+      method: 'POST',
+      data: {
+        jumlah_pesan: this.state.jumlah,
+      },
+      headers: {
+        Authorization: `Bearer ${this.props.userToken.userReducer.user}`,
+      },
+    })
+      .then((result) => {
+        console.log('Berhasil Di masukan ke keranjang', result);
+        this.props.navigation.navigate('Troli');
+        ToastAndroid.show(
+          'Berhasil Di masukan ke keranjang',
+          ToastAndroid.LONG,
+        );
+      })
+      .catch((err) => {
+        ToastAndroid.show('Gagal Memasukan Ke keranjang', ToastAndroid.LONG);
+        console.log('Gagal Memasukan ke keranjang', err);
+      });
+  }
 
   render() {
     if (this.state.isloading) {
@@ -64,7 +109,7 @@ export class DetailProduct extends Component {
         </View>
       );
     }
-    //console.log(this.props.route.params);
+    // console.log('lagi mencari id', this.props.route.params.item.id);
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -76,7 +121,9 @@ export class DetailProduct extends Component {
               source={require('../asset/icon/back.png')}
             />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.exHeader}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Troli')}
+            style={styles.exHeader}>
             <Image
               style={styles.iconHeader}
               source={require('../asset/icon/troli3.png')}
@@ -103,19 +150,20 @@ export class DetailProduct extends Component {
               </Text>
             </View>
             <View style={styles.rating}>
-              <Text style={styles.textrating}>
-                Rating :{this.state.data.rating}
-              </Text>
+              <Text>Rating :</Text>
+              <Text style={styles.textrating}>{this.state.data.rating}</Text>
             </View>
             <View style={styles.description}>
+              <Text>Description :</Text>
               <Text style={styles.textdescription}>
-                Description :{this.state.data.decription}
+                {this.state.data.description}
               </Text>
             </View>
           </View>
         </ScrollView>
         <View style={styles.buy}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('chatUser')}>
             <Image
               style={styles.chat}
               source={require('../asset/icon/chatLol.png')}
@@ -124,13 +172,65 @@ export class DetailProduct extends Component {
           <TouchableOpacity style={styles.Buy}>
             <Text style={styles.textBuy}>Buy</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.cart}>
+          <TouchableOpacity onPress={() => this.cartItem()} style={styles.cart}>
             <Text style={styles.textCart}>Tambah Ke Keranjang</Text>
           </TouchableOpacity>
         </View>
+
+        {/* this pact Modal add BUY */}
+
+        <Modal visible={this.state.openModal} transparent={true}>
+          <ScrollView>
+            <TouchableOpacity onPress={() => this.setState({openModal: false})}>
+              <View style={styles.back}>
+                <Text>Back</Text>
+              </View>
+            </TouchableOpacity>
+            <View style={styles.pactModal}>
+              <View style={styles.inModal}>
+                <View style={styles.imageModal}>
+                  <Image
+                    style={styles.imageModal1}
+                    source={{uri: this.state.data.image}}
+                  />
+                </View>
+                <View style={styles.item}>
+                  <Text style={styles.text1}>{this.state.data.name}</Text>
+                  <Text style={styles.text2}>Jumlah</Text>
+                  <View style={styles.MinMax}>
+                    <TouchableOpacity style={styles.MiM}>
+                      <Text style={styles.text3}>-</Text>
+                    </TouchableOpacity>
+                    <TextInput
+                      onChangeText={(jumlah) => this.setState({jumlah})}
+                      keyboardType="number-pad"
+                      style={styles.input}
+                      placeholder="."
+                    />
+                    <TouchableOpacity style={styles.MiM}>
+                      <Text style={styles.text3}>+</Text>
+                    </TouchableOpacity>
+                  </View>
+                  {/* <Text>undifine</Text> */}
+                </View>
+              </View>
+              <TouchableOpacity
+                onPress={() => this.addCart()}
+                style={styles.addChart}>
+                <Text style={styles.textBuyModal}>Buy</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </Modal>
       </View>
     );
   }
 }
 
-export default DetailProduct;
+const mapStateToProps = (state) => {
+  return {
+    userToken: state,
+  };
+};
+
+export default connect(mapStateToProps)(DetailProduct);

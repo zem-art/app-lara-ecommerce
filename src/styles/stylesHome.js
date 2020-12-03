@@ -67,6 +67,11 @@ const styles = StyleSheet.create({
     //borderWidth: 1,
     backgroundColor: '#d3d3d3',
   },
+  stars: {
+    height: 20,
+    width: 20,
+    right: 5,
+  },
   Menu: {
     // backgroundColor: '#8a2be2',
     //borderWidth: 1,
@@ -146,11 +151,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   Rating: {
-    // borderWidth: 1,
+    margin: 15,
+    flexDirection: 'row',
     alignSelf: 'flex-end',
-    marginVertical: 3,
-    textAlign: 'right',
-    fontSize: 12,
+    right: 10,
   },
 });
 

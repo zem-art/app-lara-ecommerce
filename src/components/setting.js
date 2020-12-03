@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableOpacity, ToastAndroid} from 'react-native';
 import {styles} from '../styles/styleSetting';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -15,6 +15,7 @@ export class Setting extends Component {
         this.props.userLogin(null);
       }
       this.props.navigation.navigate('Intro');
+      ToastAndroid.show('Anda Berhasil LogOut', ToastAndroid.LONG);
     } catch (error) {
       console.error('Error clearing app data.');
     }

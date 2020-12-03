@@ -164,9 +164,15 @@ export class Home extends Component {
                   <View style={styles.product}>
                     <Image style={styles.Image} source={{uri: item.image}} />
                     <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.price}>Price</Text>
-                    <Text style={styles.stock}>stock :{item.totalPrice}</Text>
-                    <Text style={styles.Rating}>{item.rating}</Text>
+                    <Text style={styles.stock}>Price :{item.totalPrice}</Text>
+                    {/* <Text style={styles.price}></Text> */}
+                    <View style={styles.Rating}>
+                      <Image
+                        style={styles.stars}
+                        source={require('../asset/icon/star.png')}
+                      />
+                      <Text> {item.rating}</Text>
+                    </View>
                     <Button title="Lihat" />
                   </View>
                 </View>

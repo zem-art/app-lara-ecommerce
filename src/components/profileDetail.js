@@ -73,7 +73,7 @@ export class ProfileDetail extends Component {
         _method: 'PUT',
       };
       console.log('ini data edit', edit);
-      fetch(`http://larashop12.herokuapp.com/api/profile`, {
+      fetch('http://larashop12.herokuapp.com/api/profile', {
         method: 'POST',
         body: this.createFromData(image, edit),
         headers: {

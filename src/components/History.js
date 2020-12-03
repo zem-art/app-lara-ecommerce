@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import {
   Text,
   View,
-  TouchableOpacity,
   Image,
-  ScrollView,
+  TouchableOpacity,
   ToastAndroid,
+  ScrollView,
   RefreshControl,
 } from 'react-native';
-import {styles} from '../styles/stylesTroli';
-import axios from 'axios';
+import {styles} from '../styles/history';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import Spinner from 'react-native-spinkit';
 
-export class Troli extends Component {
+export class History extends Component {
   constructor() {
     super();
     this.state = {
@@ -25,21 +25,21 @@ export class Troli extends Component {
   }
 
   componentDidMount() {
-    this.getDetail();
+    this.getPesanan();
   }
 
   onRefreash() {
     this.setState({
       refreash: true,
     });
-    this.getDetail();
+    this.getPesanan();
   }
 
-  getDetail = async () => {
+  getPesanan = async () => {
     try {
       const response = await axios({
         // call deatail product using data passing
-        url: 'https://larashop12.herokuapp.com/api/checkout',
+        url: 'https://larashop12.herokuapp.com/api/history',
         method: 'GET',
         headers: {
           Authorization: `Bearer ${this.props.userToken.userReducer.user}`,
@@ -47,11 +47,11 @@ export class Troli extends Component {
       });
       // tidak ada then disini kalo mau di kasih then di sini
       const data = response.data;
-      // console.log('ini dari troli', data.pesanan_detail);
+      console.log('ini dari pesanan ditail', data.pesanan);
       this.setState({
         isEror: false,
         isloading: false,
-        data: data.pesanan_detail,
+        data: data.pesanan,
         refreash: false,
       });
     } catch (err) {
@@ -80,17 +80,21 @@ export class Troli extends Component {
     }
   };
 
-  Pay() {
+  ChecOut() {
     try {
       axios({
-        url: 'https://larashop12.herokuapp.com/api/checkout/konfirmasi',
+        url: 'https://larashop12.herokuapp.com/api/bayar',
         method: 'GET',
         headers: {
           Authorization: `Bearer ${this.props.userToken.userReducer.user}`,
         },
       }).then((resulty) => {
         console.log('Hasil checkOUt', resulty);
-        this.getDetail();
+        ToastAndroid.show(
+          'Pesanan berhasil di bayar dan sedang dalam proses pengiriman',
+          ToastAndroid.LONG,
+        );
+        this.props.navigation.navigate('Troli');
       });
     } catch (err) {
       console.log(err);
@@ -122,42 +126,42 @@ export class Troli extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.titleCart}>My Troli</Text>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('History')}
-            style={styles.exMenu}>
+          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
             <Image
-              style={styles.iconMenu}
-              source={require('../asset/icon/manuBalok1.png')}
+              style={styles.back}
+              source={require('../asset/icon/back.png')}
             />
           </TouchableOpacity>
+          <Text style={styles.title}>Purchase History</Text>
         </View>
-        <View style={styles.pactItem}>
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreash}
-                onRefresh={() => this.onRefreash()}
-              />
-            }>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreash}
+              onRefresh={() => this.onRefreash()}
+            />
+          }>
+          <View style={styles.body}>
             {this.state.data.length !== 0 ? (
               <>
                 {this.state.data.map((item, index) => (
-                  <View style={styles.item} key={index}>
-                    <Text style={styles.titleStore}>{item.product.name}</Text>
-                    <View style={styles.Row}>
-                      <View style={styles.inItem}>
+                  <View style={styles.ItemPact} key={index}>
+                    <Text style={styles.titleItem}>
+                      Kode Pesanan : {item.kode_pesanan}
+                    </Text>
+                    <View style={styles.pactItem}>
+                      <View style={styles.Eximage}>
                         <Image
                           style={styles.image}
-                          source={{uri: item.product.image}}
+                          source={require('../asset/img/pria.png')}
                         />
                       </View>
-                      <Text style={styles.textItems}>Keterangan</Text>
-
-                      <View style={styles.buttom}>
-                        <Text>Order : {item.jumlah}</Text>
-                        <Text>{item.product.discount} %</Text>
-                        <Text>$ {item.jumlah_harga}</Text>
+                      <View style={styles.ceterangan}>
+                        <Text style={styles.text}>{item.status}</Text>
+                        <Text style={styles.text}>$ :{item.jumlah_harga}</Text>
+                        <Text style={styles.text}>
+                          Tanggal Pesanan: {item.tanggal}
+                        </Text>
                       </View>
                     </View>
                   </View>
@@ -166,14 +170,14 @@ export class Troli extends Component {
             ) : (
               <Text style={styles.textcheckOut}>Tidak ada pesanan</Text>
             )}
-          </ScrollView>
-          <TouchableOpacity
-            onPress={() => this.Pay()}
-            // onPress={() => this.setState({data: []})}
-            style={styles.chekOut}>
-            <Text style={styles.textChekOut}>Pay</Text>
-          </TouchableOpacity>
-        </View>
+          </View>
+        </ScrollView>
+        <TouchableOpacity
+          // onPress={() => this.setState({data: []})}
+          onPress={() => this.ChecOut()}
+          style={styles.chekOut}>
+          <Text style={styles.textChekOut}>ChekOut</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -185,4 +189,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Troli);
+export default connect(mapStateToProps)(History);

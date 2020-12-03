@@ -22,6 +22,7 @@ export class Market extends Component {
   }
 
   componentDidMount() {
+    console.log('ini di jalan kan berapa kali');
     this.getProfile();
   }
 
@@ -56,7 +57,7 @@ export class Market extends Component {
         //// if respon from backend
         if (eror.response) {
           ToastAndroid(
-            'Kesalahan Dari BAckEnd',
+            'maaf ada Kesalahan Dari BAckEnd kami',
             ToastAndroid.LONG,
             eror.response.data.message,
           );

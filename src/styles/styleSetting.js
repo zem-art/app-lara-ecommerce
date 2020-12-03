@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     marginLeft: 30,
     color: '#FFFF',
+    left: 30,
   },
   body: {
     backgroundColor: '#9400d3',

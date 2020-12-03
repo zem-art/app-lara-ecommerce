@@ -117,7 +117,7 @@ export class Profile extends Component {
               source={require('../asset/icon/back.png')}
             />
           </TouchableOpacity>
-          <Text style={styles.title}>This Profile</Text>
+          <Text style={styles.title}>Complete profile</Text>
         </View>
         <View style={styles.image}>
           <TouchableOpacity

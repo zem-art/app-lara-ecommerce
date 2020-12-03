@@ -1,6 +1,14 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
+  textcheckOut: {
+    textAlign: 'center',
+  },
+  loading: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
   container: {
     flex: 1,
   },
@@ -46,20 +54,22 @@ const styles = StyleSheet.create({
   },
   Row: {
     flexDirection: 'row',
+    paddingLeft: 15,
   },
   inItem: {
     backgroundColor: '#a9a9a9',
-    height: 80,
-    width: 95,
+    height: 60,
+    width: 50,
     marginHorizontal: 15,
-    marginTop: 9,
-    borderRadius: 10,
+    marginTop: 20,
+    borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textItems: {
     fontSize: 20,
     marginTop: 15,
+    paddingLeft: 10,
   },
   pactChekout: {
     backgroundColor: '#ff1493',
@@ -78,6 +88,11 @@ const styles = StyleSheet.create({
   },
   textChekOut: {
     fontSize: 15,
+  },
+  Inimage: {
+    height: 80,
+    width: 80,
+    borderRadius: 10,
   },
 });
 

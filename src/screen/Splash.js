@@ -26,7 +26,6 @@ export class Splash extends Component {
   splashScreen = () => {
     return (
       <View style={styles.container}>
-        {/* <View style={styles.background}> */}
         <Image style={styles.logo} source={require('../asset/icon/Logo.png')} />
         <Spinner
           style={styles.loading}
@@ -34,7 +33,6 @@ export class Splash extends Component {
           size={50}
           type="FadingCircleAlt"
         />
-        {/* </View> */}
       </View>
     );
   };
@@ -48,7 +46,6 @@ export class Splash extends Component {
           <Navigation />
         </Provider>
       );
-      //return <Navigation />;
     }
   }
 }

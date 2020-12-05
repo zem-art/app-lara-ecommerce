@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   ToastAndroid,
+  RefreshControl,
 } from 'react-native';
 import {styles} from '../styles/stylesChat';
 import {connect} from 'react-redux';
@@ -24,6 +25,13 @@ export class Chat extends Component {
   }
 
   componentDidMount() {
+    this.getAllChat();
+  }
+
+  onRefreash() {
+    this.setState({
+      refreash: true,
+    });
     this.getAllChat();
   }
 
@@ -86,7 +94,13 @@ export class Chat extends Component {
           <Text style={styles.titleCart}>Chat</Text>
         </View>
         <View style={styles.pactItem}>
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreash}
+                onRefresh={() => this.onRefreash()}
+              />
+            }>
             {this.state.user.length !== 0 ? (
               <>
                 {this.state.user.map((item, index) => (
@@ -110,7 +124,9 @@ export class Chat extends Component {
                 ))}
               </>
             ) : (
-              <Text style={styles.textcheckOut}>Belum Memilki chat</Text>
+              <Text style={styles.textcheckOut}>
+                Tidak Ada Pengguna Yang Online
+              </Text>
             )}
           </ScrollView>
         </View>
@@ -126,12 +142,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(Chat);
-
-//   <TouchableOpacity
-// onPressOut={() => this.props.navigation.goBack()}
-// style={styles.exback}>
-// <Image
-//  style={styles.back}
-// source={require('../asset/icon/back.png')}
-// />
-//  </TouchableOpacity>

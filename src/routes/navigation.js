@@ -10,14 +10,10 @@ import Forgot from '../screen/auth/forgot';
 import Intro from '../screen/Intro';
 import MyTabs from './TabBottom';
 import Setting from '../components/setting';
-import cartScreen from '../components/cartScreen';
 import Product from '../components/productScreen';
-import ChekOut from '../components/chekOut';
 import Category from '../controller/Category';
-import Header from '../components/HeaderfromHome';
 import DetailProduct from '../components/DetailProduct';
 import AddProduct from '../components/addProduct';
-import OpenToko from '../components/OpenToko';
 import Market from '../container/marketPlace';
 import Profile from '../components/FormulirProfile';
 import ProfileDetail from '../components/profileDetail';
@@ -25,6 +21,13 @@ import Management from '../components/productmanage';
 import EditProduct from '../components/editProduct';
 import History from '../components/History';
 import chatUser from '../components/chatUser';
+
+import Splash from '../screen/Splash';
+import OpenToko from '../components/OpenToko';
+import Header from '../components/HeaderfromHome';
+import ChekOut from '../components/chekOut';
+import cartScreen from '../components/cartScreen';
+import App from '../../App';
 
 const Stack = createStackNavigator();
 
@@ -34,10 +37,9 @@ class Navigation extends Component {
     // get token to Asyncstore
     AsyncStorage.getItem('token').then((token) => {
       // console.log(data);
+      // send To redux
       this.props.userLogin(token);
     });
-
-    // console.log(this.props.userReducer);
   }
   render() {
     return (
@@ -60,6 +62,8 @@ class Navigation extends Component {
           <Stack.Screen name="History" component={History} />
           <Stack.Screen name="Product" component={Product} />
           <Stack.Screen name="chatUser" component={chatUser} />
+          <Stack.Screen name="Splash" component={App} />
+
           {/* <Stack.Screen name="Cart" component={cartScreen} /> */}
           {/* <Stack.Screen name="ChekOut" component={ChekOut} /> */}
           {/* <Stack.Screen name="HeaderProfile" component={Header} /> */}

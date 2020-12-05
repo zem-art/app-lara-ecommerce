@@ -2,18 +2,17 @@ import React, {Component} from 'react';
 import {Text, View, Image, TouchableOpacity, ToastAndroid} from 'react-native';
 import {styles} from '../styles/styleSetting';
 import AsyncStorage from '@react-native-community/async-storage';
-
 import {connect} from 'react-redux';
 
 export class Setting extends Component {
+  // logOuth And clear Data
   logOuth = async () => {
     try {
       const keys = await AsyncStorage.getAllKeys();
       await AsyncStorage.multiRemove(keys);
-      {
-        // // remove token in redux
-        this.props.userLogin(null);
-      }
+      // // remove token in redux
+      this.props.userLogin(null);
+
       this.props.navigation.navigate('Intro');
       ToastAndroid.show('Anda Berhasil LogOut', ToastAndroid.LONG);
     } catch (error) {

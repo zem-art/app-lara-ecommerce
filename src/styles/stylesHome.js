@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#ff1493',
-    height: 60,
+    height: '50%',
   },
   search: {
     backgroundColor: '#FFFFFF',
@@ -20,10 +20,8 @@ const styles = StyleSheet.create({
     width: 285,
     borderRadius: 20,
     paddingLeft: 50,
-    //alignSelf: 'center',
     left: 20,
     marginTop: 8,
-    // borderWidth: 1,
   },
   iconSearch: {
     height: 20,

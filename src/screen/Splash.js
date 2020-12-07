@@ -30,7 +30,7 @@ export class Splash extends Component {
         <Spinner
           style={styles.loading}
           color={'white'}
-          size={50}
+          size={45}
           type="FadingCircleAlt"
         />
       </View>
@@ -45,6 +45,9 @@ export class Splash extends Component {
         <Provider store={store}>
           <Navigation />
         </Provider>
+        // <>
+        //   <Splash />
+        // </>
       );
     }
   }

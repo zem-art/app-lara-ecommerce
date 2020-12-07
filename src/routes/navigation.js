@@ -22,13 +22,6 @@ import EditProduct from '../components/editProduct';
 import History from '../components/History';
 import chatUser from '../components/chatUser';
 
-import Splash from '../screen/Splash';
-import OpenToko from '../components/OpenToko';
-import Header from '../components/HeaderfromHome';
-import ChekOut from '../components/chekOut';
-import cartScreen from '../components/cartScreen';
-import App from '../../App';
-
 const Stack = createStackNavigator();
 
 class Navigation extends Component {
@@ -62,12 +55,6 @@ class Navigation extends Component {
           <Stack.Screen name="History" component={History} />
           <Stack.Screen name="Product" component={Product} />
           <Stack.Screen name="chatUser" component={chatUser} />
-          <Stack.Screen name="Splash" component={App} />
-
-          {/* <Stack.Screen name="Cart" component={cartScreen} /> */}
-          {/* <Stack.Screen name="ChekOut" component={ChekOut} /> */}
-          {/* <Stack.Screen name="HeaderProfile" component={Header} /> */}
-          {/* <Stack.Screen name="Toko" component={OpenToko} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     );

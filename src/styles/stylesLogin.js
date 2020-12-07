@@ -3,11 +3,8 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  background: {
-    // backgroundColor: '#4169e1',
     backgroundColor: '#ff1493',
-    height: 900,
+    paddingHorizontal: 10,
   },
   header: {
     height: 50,
@@ -25,8 +22,8 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: '#ffff',
-    height: 450,
-    width: 350,
+    height: '60%',
+    width: '100%',
     marginTop: 80,
     alignSelf: 'center',
     borderRadius: 15,

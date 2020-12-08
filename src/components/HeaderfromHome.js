@@ -19,7 +19,9 @@ export class Header extends Component {
             source={require('../asset/icon/troli3.png')}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.Mesengger}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('Chat')}
+          style={styles.Mesengger}>
           <Image
             style={styles.iconMesengger}
             source={require('../asset/icon/maiiilil.png')}

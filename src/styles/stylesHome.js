@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#ff1493',
-    height: '50%',
+    height: '13%',
   },
   search: {
     backgroundColor: '#FFFFFF',
     height: 45,
-    width: 285,
+    width: '70%',
     borderRadius: 20,
     paddingLeft: 50,
     left: 20,

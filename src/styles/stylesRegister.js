@@ -3,12 +3,12 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#ff1493',
     // backgroundColor: '#181f3d',
   },
   background: {
     // backgroundColor: '#4169e1',
-    backgroundColor: '#ff1493',
-    height: 900,
+    paddingHorizontal: '5%',
   },
   header: {
     height: 50,
@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: '#ffff',
-    height: 450,
-    width: 350,
+    height: '60%',
+    width: '100%',
     marginTop: 80,
     alignSelf: 'center',
     borderRadius: 15,
@@ -40,13 +40,12 @@ const styles = StyleSheet.create({
   input: {
     borderBottomWidth: 1,
     borderBottomColor: '#bdbdbdbd',
-    width: 320,
     marginBottom: 10,
   },
   login: {
     backgroundColor: 'white',
     height: 50,
-    width: 200,
+    width: '60%',
     borderRadius: 10,
     alignSelf: 'center',
     marginTop: 20,

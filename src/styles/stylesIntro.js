@@ -4,17 +4,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ff1493',
+
     // backgroundColor: '#4169e1',
   },
-  background: {},
   sizeIcon: {
+    marginVertical: '15%',
+  },
+  background: {
+    // borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '50%',
     alignSelf: 'center',
-    marginVertical: 70,
+    width: '80%',
   },
   icon: {
-    height: 300,
-    width: 350,
-    //borderRadius: 10,
+    height: '100%',
+    width: '90%',
   },
   title: {
     alignSelf: 'center',

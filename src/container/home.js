@@ -138,6 +138,7 @@ export class Home extends Component {
           <View style={styles.iklan}>
             <Text>Ini Bagian Iklan</Text>
           </View>
+
           <View style={styles.Menu}>
             <Text style={styles.titleCategory}>Category</Text>
             <ScrollView horizontal={true}>
@@ -148,6 +149,7 @@ export class Home extends Component {
               </View>
             </ScrollView>
           </View>
+
           <View style={styles.nameItem}>
             {/* return data from its map , this return */}
             {this.state.data.map((item, index) => (
@@ -165,15 +167,13 @@ export class Home extends Component {
                     <Image style={styles.Image} source={{uri: item.image}} />
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.stock}>Price :{item.totalPrice}</Text>
-                    {/* <Text style={styles.price}></Text> */}
                     <View style={styles.Rating}>
                       <Image
                         style={styles.stars}
                         source={require('../asset/icon/star.png')}
                       />
-                      <Text> {item.rating}</Text>
+                      <Text style={styles.price}>{item.rating}</Text>
                     </View>
-                    <Button title="Lihat" />
                   </View>
                 </View>
               </TouchableOpacity>

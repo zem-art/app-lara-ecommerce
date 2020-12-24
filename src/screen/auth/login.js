@@ -57,30 +57,23 @@ export class Login extends Component {
               isloading: false,
             });
           }
+        })
+        .catch((eror) => {
+          ToastAndroid.show('Email Atau Password Salah', ToastAndroid.LONG);
+          console.log('Erororo', eror);
+          this.setState({
+            isloading: false,
+          });
         });
     } catch (eror) {
       this.setState({isloading: false});
       if (eror.response) {
         ToastAndroid.show(
-          'Email Atau Password Salah',
-          ToastAndroid.LONG,
-          // eror.response.data.messager,
-        );
-        console.log('Erororr ', eror.response.data);
-      }
-      // respons from claent
-      else if (eror.request) {
-        ToastAndroid.show('Data Yang Di Masukan Salah', ToastAndroid.LONG);
-      }
-      // respon from developer
-      else {
-        ToastAndroid.show(
           'Maaf Terjadi Kesalahan Dari Kami',
           ToastAndroid.LONG,
         );
+        console.log('Erororr ', eror.response.data);
       }
-      // respon from developer and claent
-      // alert('kamu offline nih');
     }
   };
   render() {

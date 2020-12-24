@@ -80,7 +80,7 @@ export class Header extends Component {
   render() {
     // console.log('ini state data ', this.state.data.length);
     return (
-      <View>
+      <>
         {/* <TouchableOpacity
           onPress={() => console.log(this.props.userToken.userReducer.user)}>
           <Text>Klik Token</Text>
@@ -173,7 +173,7 @@ export class Header extends Component {
             <Text style={styles.text}>Just seen</Text>
           </View>
         </View>
-      </View>
+      </>
     );
   }
 }

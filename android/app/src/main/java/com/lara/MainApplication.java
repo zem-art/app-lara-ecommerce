@@ -1,4 +1,4 @@
-package com.lara;
+package com.larashop2020;
 
 import android.app.Application;
 import android.content.Context;

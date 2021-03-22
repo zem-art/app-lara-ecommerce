@@ -6,7 +6,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Image,
   ToastAndroid,
 } from 'react-native';
 import {styles} from '../../styles/stylesLogin';

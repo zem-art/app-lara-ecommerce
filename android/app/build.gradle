@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.lara"
+        applicationId "com.larashop2020"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

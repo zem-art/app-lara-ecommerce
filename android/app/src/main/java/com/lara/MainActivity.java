@@ -1,4 +1,4 @@
-package com.lara;
+package com.larashop2020;
 
 import com.facebook.react.ReactActivity;
 
